@@ -1,11 +1,13 @@
 package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.EmergencyTag;
 import seedu.address.model.tag.Tag;
@@ -169,7 +171,7 @@ public class Person {
             && email.equals(otherPerson.email)
             && address.equals(otherPerson.address)
             && tags.equals(otherPerson.tags)
-            && emergencyTags.equals(otherPerson.emergencyTags);  // Compare the emergency tag sets
+            && emergencyTags.equals(otherPerson.emergencyTags); // Compare the emergency tag sets
     }
 
     @Override

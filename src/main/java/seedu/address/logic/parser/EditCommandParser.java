@@ -8,10 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -87,19 +89,20 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> emergencyTags} into a {@code Set<EmergencyTag>} if {@code emergencyTags} is non-empty.
+     * Parses {@code Collection<String> emergencyTags} into a {@code Set<EmergencyTag>}
+     * if {@code emergencyTags} is non-empty.
      * If {@code emergencyTags} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<EmergencyTag>} containing zero tags.
      */
-    private Optional<Set<EmergencyTag>> parseEmergencyTagsForEdit(Collection<String> emergencyTags)
-        throws ParseException {
+    private Optional<Set<EmergencyTag>> parseEmergencyTagsForEdit(
+        Collection<String> emergencyTags) throws ParseException {
         assert emergencyTags != null;
-
         if (emergencyTags.isEmpty()) {
             return Optional.empty();
         }
         Collection<String> emergencyTagSet =
-            emergencyTags.size() == 1 && emergencyTags.contains("") ? Collections.emptySet() : emergencyTags;
+            emergencyTags.size() == 1
+                && emergencyTags.contains("") ? Collections.emptySet() : emergencyTags;
         return Optional.of(ParserUtil.parseEmergencyTags(emergencyTagSet));
     }
 
