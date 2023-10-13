@@ -145,7 +145,8 @@ public class PersonBuilder {
      * Builds a {@code Person}.
      */
     public Person build() {
-        return new Person(name, phone, email, address, birthday, linkedin, secondaryEmail, telegram, tags, emergencyTags);
+        return new Person(name, phone, email, address, birthday,
+            linkedin, secondaryEmail, telegram, tags, emergencyTags);
     }
 
 }
