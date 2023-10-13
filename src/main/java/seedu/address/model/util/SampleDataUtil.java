@@ -14,6 +14,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.tag.EmergencyTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -40,7 +41,8 @@ public class SampleDataUtil {
                 Optional.empty(),
                 Optional.empty(),
                 Optional.empty(),
-                getTagSet("classmates")),
+                getTagSet("classmates"),
+                getEmergencyTagSet("RA")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
                 getTagSet("colleagues"))
@@ -62,6 +64,15 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a tag set containing the list of strings given.
+     */
+    public static Set<EmergencyTag> getEmergencyTagSet(String... strings) {
+        return Arrays.stream(strings)
+            .map(EmergencyTag::new)
+            .collect(Collectors.toSet());
     }
 
 }

@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -29,6 +30,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
+import seedu.address.model.tag.EmergencyTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -46,6 +48,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_EMERGENCY_TAG + "EMERGENCY TAG]"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -107,9 +110,10 @@ public class EditCommand extends Command {
         Optional<Email> secondaryEmail = personToEdit.getSecondaryEmail();
         Optional<Telegram> telegram = personToEdit.getTelegram();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Set<EmergencyTag> updatedEmergencyTags = editPersonDescriptor.getEmergencyTags().orElse(personToEdit.getEmergencyTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBirthday,
-                linkedin, secondaryEmail, telegram, updatedTags);
+                linkedin, secondaryEmail, telegram, updatedTags, updatedEmergencyTags);
     }
 
     @Override
@@ -146,6 +150,8 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Set<EmergencyTag> emergencyTags;  // Add this field
+
 
         public EditPersonDescriptor() {}
 
@@ -159,13 +165,14 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setEmergencyTags(toCopy.emergencyTags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, emergencyTags);
         }
 
         public void setName(Name name) {
@@ -216,6 +223,22 @@ public class EditCommand extends Command {
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
+        /**
+         * Sets {@code emergencyTags} to this object's {@code emergencyTags}.
+         * A defensive copy of {@code emergencyTags} is used internally.
+         */
+        public void setEmergencyTags(Set<EmergencyTag> emergencyTags) {
+            this.emergencyTags = (emergencyTags != null) ? new HashSet<>(emergencyTags) : null;
+        }
+
+        /**
+         * Returns an unmodifiable emergency tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code emergencyTags} is null.
+         */
+        public Optional<Set<EmergencyTag>> getEmergencyTags() {
+            return (emergencyTags != null) ? Optional.of(Collections.unmodifiableSet(emergencyTags)) : Optional.empty();
+        }
 
         @Override
         public boolean equals(Object other) {
@@ -233,7 +256,9 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags);
+                    && Objects.equals(tags, otherEditPersonDescriptor.tags)
+                    && Objects.equals(emergencyTags, otherEditPersonDescriptor.emergencyTags);
+
         }
 
         @Override
@@ -244,6 +269,7 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("tags", tags)
+                    .add("emergencyTags", emergencyTags)
                     .toString();
         }
     }

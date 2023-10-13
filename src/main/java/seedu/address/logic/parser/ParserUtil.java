@@ -14,6 +14,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Linkedin;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.tag.EmergencyTag;
 import seedu.address.model.person.Telegram;
 import seedu.address.model.tag.Tag;
 
@@ -153,4 +154,33 @@ public class ParserUtil {
         }
         return tagSet;
     }
+    /**
+     * Parses a {@code String emergencyTag} into an {@code EmergencyTag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code emergencyTag} is invalid.
+     */
+    public static EmergencyTag parseEmergencyTag(String emergencyTag) throws ParseException {
+        requireNonNull(emergencyTag);
+        String trimmedEmergencyTag = emergencyTag.trim();
+        if (!EmergencyTag.isValidEmergencyTagName(trimmedEmergencyTag)) {
+            throw new ParseException(EmergencyTag.MESSAGE_CONSTRAINTS);
+        }
+        return new EmergencyTag(trimmedEmergencyTag);
+    }
+
+    /**
+     * Parses {@code Collection<String> emergencyTags} into a {@code Set<EmergencyTag>}.
+     */
+    public static Set<EmergencyTag> parseEmergencyTags(Collection<String> emergencyTags) throws ParseException {
+        requireNonNull(emergencyTags);
+        final Set<EmergencyTag> emergencyTagSet = new HashSet<>();
+        for (String emergencyTagName : emergencyTags) {
+            emergencyTagSet.add(parseEmergencyTag(emergencyTagName));
+        }
+        return emergencyTagSet;
+    }
+
+
+
 }

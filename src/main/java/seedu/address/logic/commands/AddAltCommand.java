@@ -26,6 +26,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
+import seedu.address.model.tag.EmergencyTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -88,6 +89,7 @@ public class AddAltCommand extends Command {
         Email email = personToEdit.getEmail();
         Address address = personToEdit.getAddress();
         Set<Tag> tags = personToEdit.getTags();
+        Set<EmergencyTag> emergencyTags = personToEdit.getEmergencyTags();
         Optional<Birthday> birthday = personToEdit.getBirthday();
         Linkedin updatedLinkedin = personToEdit.getLinkedin().orElse(addAltPersonDescriptor.getLinkedin());
         Email updatedSecondaryEmail = personToEdit.getSecondaryEmail()
@@ -95,7 +97,7 @@ public class AddAltCommand extends Command {
         Telegram updatedTelegram = personToEdit.getTelegram().orElse(addAltPersonDescriptor.getTelegram());
 
         return new Person(name, phone, email, address, birthday, Optional.ofNullable(updatedLinkedin),
-                Optional.ofNullable(updatedSecondaryEmail), Optional.ofNullable(updatedTelegram), tags);
+                Optional.ofNullable(updatedSecondaryEmail), Optional.ofNullable(updatedTelegram), tags, emergencyTags);
     }
     @Override
     public boolean equals(Object other) {

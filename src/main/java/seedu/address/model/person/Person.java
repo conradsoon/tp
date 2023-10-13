@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.tag.EmergencyTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,7 +30,24 @@ public class Person {
     private Optional<Email> secondaryEmail;
     private Optional<Telegram> telegram;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<EmergencyTag> emergencyTags = new HashSet<>();
 
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<EmergencyTag> emergencyTags) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.birthday = Optional.empty();
+        this.linkedin = Optional.empty();
+        this.secondaryEmail = Optional.empty();
+        this.telegram = Optional.empty();
+        this.tags.addAll(tags);
+        this.emergencyTags.addAll(emergencyTags);
+    }
     /**
      * Every field must be present and not null.
      */
@@ -51,8 +69,8 @@ public class Person {
      */
     public Person(Name name, Phone phone, Email email, Address address, Optional<Birthday> birthday,
                   Optional<Linkedin> linkedin, Optional<Email> secondaryEmail,
-                  Optional<Telegram> telegram, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, birthday, tags);
+                  Optional<Telegram> telegram, Set<Tag> tags, Set<EmergencyTag> emergencyTags) {
+        requireAllNonNull(name, phone, email, address, birthday, tags, emergencyTags);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -62,6 +80,7 @@ public class Person {
         this.secondaryEmail = secondaryEmail;
         this.telegram = telegram;
         this.tags.addAll(tags);
+        this.emergencyTags.addAll(emergencyTags);
     }
 
     public Name getName() {
@@ -109,6 +128,14 @@ public class Person {
     }
 
     /**
+     * Returns an immutable emergency tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<EmergencyTag> getEmergencyTags() {
+        return Collections.unmodifiableSet(emergencyTags);
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
@@ -141,13 +168,14 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+                && tags.equals(otherPerson.tags)
+                && emergencyTags.equals(otherPerson.emergencyTags);  // Compare the emergency tag sets
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, emergencyTags);
     }
 
     @Override
@@ -158,6 +186,7 @@ public class Person {
                 .add("email", email)
                 .add("address", address)
                 .add("tags", tags)
+                .add("emergencyTags", emergencyTags)
                 .toString();
     }
 

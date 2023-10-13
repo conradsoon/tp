@@ -58,11 +58,22 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
+
+        person.getEmergencyTags().stream()
+            .sorted(Comparator.comparing(tag -> tag.tagName))
+            .forEach(tag -> {
+                Label label = new Label(tag.tagName);
+                label.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                tags.getChildren().add(label);
+            });
+
+        // Then add regular tags
         linkedin.setText(person.getLinkedin().map(l -> l.value).orElse(""));
         secondaryEmail.setText(person.getSecondaryEmail().map(e -> e.value).orElse(""));
         telegram.setText(person.getTelegram().map(t -> t.value).orElse(""));
         person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            .sorted(Comparator.comparing(tag -> tag.tagName))
+            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
+
 }
