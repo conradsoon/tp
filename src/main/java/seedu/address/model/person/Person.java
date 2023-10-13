@@ -1,13 +1,11 @@
 package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.EmergencyTag;
 import seedu.address.model.tag.Tag;
@@ -35,7 +33,8 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<EmergencyTag> emergencyTags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  Set<EmergencyTag> emergencyTags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -48,6 +47,7 @@ public class Person {
         this.tags.addAll(tags);
         this.emergencyTags.addAll(emergencyTags);
     }
+
     /**
      * Every field must be present and not null.
      */
@@ -145,7 +145,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+            && otherPerson.getName().equals(getName());
     }
 
     /**
@@ -165,11 +165,11 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
-                && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags)
-                && emergencyTags.equals(otherPerson.emergencyTags);  // Compare the emergency tag sets
+            && phone.equals(otherPerson.phone)
+            && email.equals(otherPerson.email)
+            && address.equals(otherPerson.address)
+            && tags.equals(otherPerson.tags)
+            && emergencyTags.equals(otherPerson.emergencyTags);  // Compare the emergency tag sets
     }
 
     @Override
@@ -181,13 +181,13 @@ public class Person {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
-                .add("address", address)
-                .add("tags", tags)
-                .add("emergencyTags", emergencyTags)
-                .toString();
+            .add("name", name)
+            .add("phone", phone)
+            .add("email", email)
+            .add("address", address)
+            .add("tags", tags)
+            .add("emergencyTags", emergencyTags)
+            .toString();
     }
 
 }

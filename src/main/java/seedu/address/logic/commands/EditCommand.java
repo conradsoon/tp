@@ -8,14 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
@@ -40,19 +38,13 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_EMERGENCY_TAG + "EMERGENCY TAG]"
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified " +
+        "by the index number used in the displayed person list. " +
+        "Existing values will be overwritten by the input values.\n" +
+        "Parameters: INDEX (must be a positive integer) " + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE +
+        "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] " + "[" + PREFIX_ADDRESS + "ADDRESS] " + "[" + PREFIX_EMERGENCY_TAG +
+        "EMERGENCY TAG]" + "[" + PREFIX_TAG + "TAG]...\n" + "Example: " + COMMAND_WORD + " 1 " + PREFIX_PHONE +
+        "91234567 " + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -62,7 +54,7 @@ public class EditCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
@@ -100,7 +92,6 @@ public class EditCommand extends Command {
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
-
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
@@ -110,10 +101,11 @@ public class EditCommand extends Command {
         Optional<Email> secondaryEmail = personToEdit.getSecondaryEmail();
         Optional<Telegram> telegram = personToEdit.getTelegram();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-        Set<EmergencyTag> updatedEmergencyTags = editPersonDescriptor.getEmergencyTags().orElse(personToEdit.getEmergencyTags());
+        Set<EmergencyTag> updatedEmergencyTags =
+            editPersonDescriptor.getEmergencyTags().orElse(personToEdit.getEmergencyTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBirthday,
-                linkedin, secondaryEmail, telegram, updatedTags, updatedEmergencyTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedBirthday, linkedin,
+            secondaryEmail, telegram, updatedTags, updatedEmergencyTags);
     }
 
     @Override
@@ -128,16 +120,14 @@ public class EditCommand extends Command {
         }
 
         EditCommand otherEditCommand = (EditCommand) other;
-        return index.equals(otherEditCommand.index)
-                && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
+        return index.equals(otherEditCommand.index) &&
+            editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("index", index)
-                .add("editPersonDescriptor", editPersonDescriptor)
-                .toString();
+        return new ToStringBuilder(this).add("index", index).add("editPersonDescriptor", editPersonDescriptor)
+            .toString();
     }
 
     /**
@@ -153,7 +143,8 @@ public class EditCommand extends Command {
         private Set<EmergencyTag> emergencyTags;  // Add this field
 
 
-        public EditPersonDescriptor() {}
+        public EditPersonDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -223,6 +214,7 @@ public class EditCommand extends Command {
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
+
         /**
          * Sets {@code emergencyTags} to this object's {@code emergencyTags}.
          * A defensive copy of {@code emergencyTags} is used internally.
@@ -252,25 +244,19 @@ public class EditCommand extends Command {
             }
 
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
-            return Objects.equals(name, otherEditPersonDescriptor.name)
-                    && Objects.equals(phone, otherEditPersonDescriptor.phone)
-                    && Objects.equals(email, otherEditPersonDescriptor.email)
-                    && Objects.equals(address, otherEditPersonDescriptor.address)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags)
-                    && Objects.equals(emergencyTags, otherEditPersonDescriptor.emergencyTags);
+            return Objects.equals(name, otherEditPersonDescriptor.name) &&
+                Objects.equals(phone, otherEditPersonDescriptor.phone) &&
+                Objects.equals(email, otherEditPersonDescriptor.email) &&
+                Objects.equals(address, otherEditPersonDescriptor.address) &&
+                Objects.equals(tags, otherEditPersonDescriptor.tags) &&
+                Objects.equals(emergencyTags, otherEditPersonDescriptor.emergencyTags);
 
         }
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this)
-                    .add("name", name)
-                    .add("phone", phone)
-                    .add("email", email)
-                    .add("address", address)
-                    .add("tags", tags)
-                    .add("emergencyTags", emergencyTags)
-                    .toString();
+            return new ToStringBuilder(this).add("name", name).add("phone", phone).add("email", email)
+                .add("address", address).add("tags", tags).add("emergencyTags", emergencyTags).toString();
         }
     }
 }

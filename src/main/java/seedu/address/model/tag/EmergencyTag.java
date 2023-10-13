@@ -10,6 +10,12 @@ public class EmergencyTag extends Tag {
 
     public static final String MESSAGE_CONSTRAINTS = "Emergency tags should be RA or SOS";
 
+    /**
+     * Defines valid emergency tag names.
+     * <p>
+     * RA: (Residential Assistant)
+     * SOS: (Security Officer of the School)
+     */
     public enum EmergencyTagName {
         RA, SOS
     }
