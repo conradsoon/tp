@@ -30,6 +30,7 @@ public class EventFactoryTest {
                 Optional.empty(),
                 Optional.empty(),
                 Optional.empty(),
+                new HashSet<>(),
                 new HashSet<>()
         ));
 

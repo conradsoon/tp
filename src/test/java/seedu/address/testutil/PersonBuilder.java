@@ -13,6 +13,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
+import seedu.address.model.tag.EmergencyTag;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -35,6 +36,7 @@ public class PersonBuilder {
     private Optional<Email> secondaryEmail;
     private Optional<Telegram> telegram;
     private Set<Tag> tags;
+    private Set<EmergencyTag> emergencyTags;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -143,7 +145,7 @@ public class PersonBuilder {
      * Builds a {@code Person}.
      */
     public Person build() {
-        return new Person(name, phone, email, address, birthday, linkedin, secondaryEmail, telegram, tags);
+        return new Person(name, phone, email, address, birthday, linkedin, secondaryEmail, telegram, tags, emergencyTags);
     }
 
 }
