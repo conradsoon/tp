@@ -34,6 +34,7 @@ For a more technical and comprehensive overview of CampusConnect's codebase, ple
    - List emergency contacts
    - Delete normal contact
    - Delete emergency contact
+   - Add notes to contact
    - Undo last action [Coming Soon]
    - Receive actual birthday notification 
    - Receive upcoming birthday notification [Coming Soon]
@@ -288,6 +289,23 @@ Format: `delemer INDEX`
 Examples:
 * `delemer 1`
   * Indicates that contact at index 1 is no longer an emergency contact
+
+### Add notes to contact
+Allows users to append additional notes to a contact for further details or remarks.
+**Format**: note INDEX NOTE_CONTENT
+
+**Examples**:
+- `note 1 This is additional information about John.`
+
+### Remove notes from contact
+
+Provides an option to declutter by removing unwanted or outdated notes from a contact.
+
+**Format**: removenote INDEX_PERSON INDEX_NOTE
+
+**Examples**:
+- `removenote 1 2`
+    - Removes the 2nd note from the 1st contact in the list.
 
 ###  Undo last action [Coming Soon]
 ###  Receive actual birthday notification
