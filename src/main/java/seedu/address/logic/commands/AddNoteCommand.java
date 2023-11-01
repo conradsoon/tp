@@ -20,7 +20,7 @@ public class AddNoteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a note to the person "
         + "identified by the index number used in the last person listing. "
         + "Parameters: INDEX (must be a positive integer) NOTE_CONTENT\n"
-        + "Example: " + COMMAND_WORD + " 1 This is a sample note for the person.";
+        + "Example: " + COMMAND_WORD + " 1 \"This is a sample note for the person.\"";
     public static final String MESSAGE_NOTE_SUCCESS = "Added note to person.";
     private final Index index;
     private final Note note;

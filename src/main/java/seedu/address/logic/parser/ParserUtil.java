@@ -18,6 +18,7 @@ import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Linkedin;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
 import seedu.address.model.tag.Tag;
@@ -173,6 +174,41 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+    /**
+     * Parses a {@code String notes} into a {@code Notes}.
+     * The notes should start and end with a double quotation mark (").
+     * Leading and trailing whitespaces outside the quotation marks will be trimmed.
+     *
+     * @param notes The string input to be parsed.
+     * @return A valid Notes object.
+     * @throws ParseException if the given {@code notes} contains invalid characters or does not start and end with ".
+     */
+    public static Note parseNote(String notes) throws ParseException {
+        requireNonNull(notes);
+        String trimmedNotes = notes.trim();
+
+        // Check that the notes start and end with a double quotation mark
+        if (trimmedNotes.length() < 2 || !trimmedNotes.startsWith("\"") || !trimmedNotes.endsWith("\"")) {
+            throw new ParseException(Note.MESSAGE_CONSTRAINTS_START_END_QUOTE);
+        }
+
+        //Don't allow blank notes
+        if (trimmedNotes.length() == 2) {
+            throw new ParseException(Note.MESSAGE_CONSTRAINTS_BLANK);
+        }
+
+        // Remove the starting and ending quotation marks
+        String content = trimmedNotes.substring(1, trimmedNotes.length() - 1);
+
+        // Define the valid characters for notes.
+        // Allowing basic Latin alphabet characters (both uppercase and lowercase), numbers, common punctuation marks, and whitespace.
+
+        if (!content.matches(Note.VALIDATION_REGEX)) {
+            throw new ParseException(Note.MESSAGE_CONSTRAINTS_INVALID_CHARACTERS);
+        }
+
+        return new Note(content);
     }
 
     /**

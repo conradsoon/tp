@@ -23,15 +23,15 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
             String[] splitArgs = args.trim().split("\\s", 2);
 
             if (splitArgs.length < 2) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE));
+                throw new ParseException(AddNoteCommand.MESSAGE_USAGE);
             }
 
             Index index = ParserUtil.parseIndex(splitArgs[0]);
-            Note note = new Note(splitArgs[1].trim());
+            Note note = ParserUtil.parseNote(splitArgs[1].trim());
 
             return new AddNoteCommand(index, note);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getMessage()));
         }
     }
 }
