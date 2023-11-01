@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,29 +28,29 @@ public class AddNoteCommandParserTest {
 
         // Missing index
         assertParseFailure(parser, "\"Test note\"",
-            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE));
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_INDEX));
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid index
         assertParseFailure(parser, "0 \"Test note\"",
-            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE));
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_INDEX));
 
         // invalid characters in note
         assertParseFailure(parser, "1 \"Test @note\"",
-            Note.MESSAGE_CONSTRAINTS_INVALID_CHARACTERS);
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, Note.MESSAGE_CONSTRAINTS_INVALID_CHARACTERS));
 
         // missing starting quotation mark
         assertParseFailure(parser, "1 Test note\"",
-            Note.MESSAGE_CONSTRAINTS_START_END_QUOTE);
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, Note.MESSAGE_CONSTRAINTS_START_END_QUOTE));
 
         // missing ending quotation mark
         assertParseFailure(parser, "1 \"Test note",
-            Note.MESSAGE_CONSTRAINTS_START_END_QUOTE);
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, Note.MESSAGE_CONSTRAINTS_START_END_QUOTE));
 
         // blank note
         assertParseFailure(parser, "1 \"\"",
-            Note.MESSAGE_CONSTRAINTS_BLANK);
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, Note.MESSAGE_CONSTRAINTS_BLANK));
     }
 }

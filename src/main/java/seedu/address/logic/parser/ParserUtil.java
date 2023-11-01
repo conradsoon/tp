@@ -202,8 +202,6 @@ public class ParserUtil {
         String content = trimmedNotes.substring(1, trimmedNotes.length() - 1);
 
         // Define the valid characters for notes.
-        // Allowing basic Latin alphabet characters (both uppercase and lowercase), numbers, common punctuation marks, and whitespace.
-
         if (!content.matches(Note.VALIDATION_REGEX)) {
             throw new ParseException(Note.MESSAGE_CONSTRAINTS_INVALID_CHARACTERS);
         }
