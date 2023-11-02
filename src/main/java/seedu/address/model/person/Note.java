@@ -50,22 +50,6 @@ public class Note {
         return test.matches(VALIDATION_REGEX);
     }
 
-    /**
-     * Parses a {@code String note} into a {@code Note}.
-     * Leading and trailing whitespaces will be trimmed.
-     * @param note A raw string input of note
-     * @return A valid Note object
-     * @throws ParseException if the given {@code note} is invalid.
-     */
-    public static Note parseNote(String note) throws ParseException {
-        requireNonNull(note);
-        String trimmedNote = note.trim();
-        if (!isValidNote(trimmedNote)) {
-            throw new ParseException(MESSAGE_CONSTRAINTS);
-        }
-        return new Note(trimmedNote);
-    }
-
     @Override
     public String toString() {
         return text;

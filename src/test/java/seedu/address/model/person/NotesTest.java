@@ -1,9 +1,11 @@
 package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collections;
 
@@ -97,5 +99,25 @@ public class NotesTest {
         assertEquals(2, person.getNotes().size());
         assertEquals(note1, person.getNotes().get(0));
         assertEquals(note2, person.getNotes().get(1));
+    }
+
+    @Test
+    public void isValidNote_validNoteWithAlphabetsAndNumbers_returnsTrue() {
+        assertTrue(Note.isValidNote("A simple note 123"));
+    }
+
+    @Test
+    public void isValidNote_validNoteWithSpecialCharacters_returnsTrue() {
+        assertTrue(Note.isValidNote("A note with special characters !?;:'\"(),.-"));
+    }
+
+    @Test
+    public void isValidNote_validNoteWithNewLines_returnsTrue() {
+        assertTrue(Note.isValidNote("A note with new line\ncharacters"));
+    }
+
+    @Test
+    public void isValidNote_invalidNoteWithExtraSpecialCharacters_returnsFalse() {
+        assertFalse(Note.isValidNote("A note with invalid characters @#{}[]"));
     }
 }
