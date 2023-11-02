@@ -2,8 +2,6 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-
 /**
  * Represents a Note in the address book.
  */
